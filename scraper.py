@@ -39,6 +39,8 @@ if response.ok:
     
     review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
 
+product_description = soup.select_one('#product_description + p').text
+
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
 ● product_page_url
