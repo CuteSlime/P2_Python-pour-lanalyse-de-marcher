@@ -39,6 +39,19 @@ if response.ok:
     
     review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
 
+    if review_rating == "Five":
+        review_rating = "5"
+    elif review_rating == "Four":
+        review_rating = "4"
+    elif review_rating == "Three":
+        review_rating = "3"
+    elif review_rating == "Two":
+        review_rating = "2"
+    elif review_rating == "One":
+        review_rating = "1"
+    else:
+        review_rating = "0"
+
 product_description = soup.select_one('#product_description + p').text
 
 print(f'\'{category.text}\' \'{title.text}\' en stock : {number_available.group()} note : {review_rating} \n{product_description}')
