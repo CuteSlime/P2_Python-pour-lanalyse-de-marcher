@@ -29,6 +29,8 @@ response = requests.get(url)
 if response.ok:
     soup = BeautifulSoup(response.text, 'lxml')
     
+    category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/'))
+    
     product_main = soup.find('div', class_= 'col-sm-6 product_main')
 
     title = product_main.find('h1')
