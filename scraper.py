@@ -29,6 +29,7 @@ response = requests.get(url)
 if response.ok:
     soup = BeautifulSoup(response.text, 'lxml')
     
+    product_main = soup.find('div', class_= 'col-sm-6 product_main')
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
 ● product_page_url
