@@ -20,6 +20,14 @@ récupération de tout les ouvrages d'une catégorie
 récupération des données de l'ouvrage
 
 """
+
+url = 'http://books.toscrape.com/catalogue/set-me-free_988/index.html'
+
+response = requests.get(url)
+
+if response.ok:
+    soup = BeautifulSoup(response.text, 'lxml')
+    
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
 ● product_page_url
