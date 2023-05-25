@@ -41,6 +41,8 @@ if response.ok:
 
 product_description = soup.select_one('#product_description + p').text
 
+print(f'\'{category.text}\' \'{title.text}\' en stock : {number_available.group()} note : {review_rating} \n{product_description}')
+quit()
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
 ● product_page_url
