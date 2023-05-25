@@ -1,20 +1,20 @@
 """
 
-récupération des catégorie d'ouvrage
+récupération des catégories d'ouvrages
 
 """
 
 
 """
 
-récupération de tout les ouvrage d'une catégorie
+récupération de tout les ouvrages d'une catégorie
 
 """
 
 
 """ 
 
-récupération des donnée de l'ouvrage
+récupération des données de l'ouvrage
 
 """
 """
