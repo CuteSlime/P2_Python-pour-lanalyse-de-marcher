@@ -30,6 +30,13 @@ if response.ok:
     soup = BeautifulSoup(response.text, 'lxml')
     
     product_main = soup.find('div', class_= 'col-sm-6 product_main')
+
+    title = product_main.find('h1')
+    
+    number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)
+    
+    review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
+
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
 ● product_page_url
