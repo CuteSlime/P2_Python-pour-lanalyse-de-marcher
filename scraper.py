@@ -57,7 +57,26 @@ if response.ok:
 
 product_description = soup.select_one('#product_description + p').text
 
-print(f'\'{category}\' \'{title}\' en stock : {number_available.group()} note : {review_rating} \n{product_description} \n \n {image_url}')
+tablesoup = soup.find('table', class_= 'table table-striped')
+
+th = []
+td = []
+for i in tablesoup.find_all('th'):
+    th.append(i.text)
+for i in tablesoup.find_all('td'):
+    td.append(i.text)
+
+table = dict(zip(th, td))
+
+universal_product_code = table.get('UPC')
+
+price_excluding_tax = table.get('Price (excl. tax)')
+
+price_including_tax = table.get('Price (incl. tax)')
+
+print(f'\'{category}\' \'{title}\' en stock : {number_available.group()} note : {review_rating} \n{product_description} \n \n {image_url} ')
+print(f'\n {universal_product_code} \n {price_excluding_tax} \n {price_including_tax}')
+
 quit()
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
