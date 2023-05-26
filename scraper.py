@@ -22,7 +22,7 @@ récupération des données de l'ouvrage
 
 """
 
-url = 'http://books.toscrape.com/catalogue/set-me-free_988/index.html'
+product_page_url = 'http://books.toscrape.com/catalogue/set-me-free_988/index.html'
 
 response = requests.get(product_page_url)
 
