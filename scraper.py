@@ -35,6 +35,9 @@ if response.ok:
 
     title = product_main.find('h1').text
     
+    image_url = re.compile(r'\.\./\.\./')
+    image_url = 'http://books.toscrape.com/' + image_url.sub('', soup.find(attrs={'alt': title})['src'])
+    
     number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)
     
     review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
