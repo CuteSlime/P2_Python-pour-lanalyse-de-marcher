@@ -29,11 +29,11 @@ response = requests.get(url)
 if response.ok:
     soup = BeautifulSoup(response.text, 'lxml')
     
-    category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/'))
+    category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
     
     product_main = soup.find('div', class_= 'col-sm-6 product_main')
 
-    title = product_main.find('h1')
+    title = product_main.find('h1').text
     
     number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)
     
@@ -54,7 +54,7 @@ if response.ok:
 
 product_description = soup.select_one('#product_description + p').text
 
-print(f'\'{category.text}\' \'{title.text}\' en stock : {number_available.group()} note : {review_rating} \n{product_description}')
+print(f'\'{category}\' \'{title}\' en stock : {number_available.group()} note : {review_rating} \n{product_description} \n \n {image_url}')
 quit()
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
