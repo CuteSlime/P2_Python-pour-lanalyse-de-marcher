@@ -73,9 +73,7 @@ universal_product_code = table.get('UPC')
 price_excluding_tax = table.get('Price (excl. tax)')
 
 price_including_tax = table.get('Price (incl. tax)')
-
-print(f'\'{category}\' \'{title}\' en stock : {number_available.group()} note : {review_rating} \n{product_description} \n \n {image_url} ')
-print(f'\n {universal_product_code} \n {price_excluding_tax} \n {price_including_tax}')
+book = {'product_page_url': str(product_page_url), 'universal_product_code (upc)': str(universal_product_code), 'title': str(title), 'price_including_tax': str(price_including_tax), 'price_excluding_tax': str(price_excluding_tax), 'number_available': str(number_available), 'product_description': str(product_description), 'category': str(category), 'review_rating': str(review_rating), 'image_url': str(image_url)}
 
 quit()
 """
