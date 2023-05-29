@@ -28,7 +28,7 @@ product_page_url = 'http://books.toscrape.com/catalogue/set-me-free_988/index.ht
 response = requests.get(product_page_url)
 
 if response.ok:
-    soup = BeautifulSoup(response.text, 'lxml')
+    soup = BeautifulSoup(response.content, 'lxml')
     
     category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
     
