@@ -30,31 +30,31 @@ response = requests.get(product_page_url)
 if response.ok:
     soup = BeautifulSoup(response.content, 'lxml')
     
-    category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
-    
-    product_main = soup.find('div', class_= 'col-sm-6 product_main')
+category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
 
-    title = product_main.find('h1').text
-    
-    image_url = re.compile(r'\.\./\.\./')
-    image_url = 'http://books.toscrape.com/' + image_url.sub('', soup.find(attrs={'alt': title})['src'])
-    
-    number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)
-    
-    review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
+product_main = soup.find('div', class_= 'col-sm-6 product_main')
 
-    if review_rating == "Five":
-        review_rating = "5"
-    elif review_rating == "Four":
-        review_rating = "4"
-    elif review_rating == "Three":
-        review_rating = "3"
-    elif review_rating == "Two":
-        review_rating = "2"
-    elif review_rating == "One":
-        review_rating = "1"
-    else:
-        review_rating = "0"
+title = product_main.find('h1').text
+
+image_url = re.compile(r'\.\./\.\./')
+image_url = 'http://books.toscrape.com/' + image_url.sub('', soup.find(attrs={'alt': title})['src'])
+
+number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)[0]
+
+review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
+
+if review_rating == "Five":
+    review_rating = "5"
+elif review_rating == "Four":
+    review_rating = "4"
+elif review_rating == "Three":
+    review_rating = "3"
+elif review_rating == "Two":
+    review_rating = "2"
+elif review_rating == "One":
+    review_rating = "1"
+else:
+    review_rating = "0"
 
 product_description = soup.select_one('#product_description + p').text
 
