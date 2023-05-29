@@ -86,11 +86,6 @@ with open(f'ScrapedData/{category}.csv', 'w') as bk:
     
     writer.writeheader()
     writer.writerow(book)
-    # book.write('product_page_url; universal_product_code (upc); title; price_including_tax; price_excluding_tax; number_available; product_description; category; review_rating; image_url\n')
-# writer('product_page_url; universal_product_code (upc); title; price_including_tax; price_excluding_tax; number_available; product_description; category; review_rating; image_url\n')
-# reader = (f'{product_page_url}; {universal_product_code}; {title}; {price_including_tax}; {price_excluding_tax}; {number_available}; {product_description}; {category}; {review_rating}; {image_url}\n')
-# print(f'\'{category}\' \'{title}\' en stock : {number_available.group()} note : {review_rating} \n{product_description} \n \n {image_url} ')
-# print(f'\n {universal_product_code} \n {price_excluding_tax} \n {price_including_tax}')
 
 
 """
