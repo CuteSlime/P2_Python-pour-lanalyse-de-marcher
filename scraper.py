@@ -1,3 +1,5 @@
+# coding: utf-8
+
 import requests
 import re
 import csv
@@ -74,11 +76,14 @@ universal_product_code = table.get('UPC')
 price_excluding_tax = table.get('Price (excl. tax)')
 
 price_including_tax = table.get('Price (incl. tax)')
+
 book = {'product_page_url': str(product_page_url), 'universal_product_code (upc)': str(universal_product_code), 'title': str(title), 'price_including_tax': str(price_including_tax), 'price_excluding_tax': str(price_excluding_tax), 'number_available': str(number_available), 'product_description': str(product_description), 'category': str(category), 'review_rating': str(review_rating), 'image_url': str(image_url)}
-with open(f'ScrapedData/{category}.csv', 'w',encoding='utf-8') as bk:
+
+with open(f'ScrapedData/{category}.csv', 'w') as bk:
     fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
     reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
     writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+    
     writer.writeheader()
     writer.writerow(book)
     # book.write('product_page_url; universal_product_code (upc); title; price_including_tax; price_excluding_tax; number_available; product_description; category; review_rating; image_url\n')
@@ -87,7 +92,7 @@ with open(f'ScrapedData/{category}.csv', 'w',encoding='utf-8') as bk:
 # print(f'\'{category}\' \'{title}\' en stock : {number_available.group()} note : {review_rating} \n{product_description} \n \n {image_url} ')
 # print(f'\n {universal_product_code} \n {price_excluding_tax} \n {price_including_tax}')
 
-quit()
+
 """
 http://books.toscrape.com/catalogue/set-me-free_988/index.html
 ● product_page_url
