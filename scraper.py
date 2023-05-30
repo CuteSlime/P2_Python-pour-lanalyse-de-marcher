@@ -1,10 +1,12 @@
 # coding: utf-8
 
 import requests
+import pathlib
 import re
 import csv
 from bs4 import BeautifulSoup
 
+pathlib.Path('./ScrapedData/IMG').mkdir(parents=True, exist_ok=True)
 """
 
 récupération des catégories d'ouvrages
