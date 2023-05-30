@@ -19,7 +19,9 @@ récupération des catégories d'ouvrages
 récupération de tout les ouvrages d'une catégorie
 
 """
-
+#i = 2
+# while f"{url catégorie}/page-{i}.html exist:
+# category_page_url = f"http://books.toscrape.com/catalogue/category/books/{category}_??/"
 
 """ 
 
