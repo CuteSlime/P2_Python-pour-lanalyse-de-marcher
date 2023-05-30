@@ -81,7 +81,7 @@ price_including_tax = table.get('Price (incl. tax)')
 
 book = {'product_page_url': str(product_page_url), 'universal_product_code (upc)': str(universal_product_code), 'title': str(title), 'price_including_tax': str(price_including_tax), 'price_excluding_tax': str(price_excluding_tax), 'number_available': str(number_available), 'product_description': str(product_description), 'category': str(category), 'review_rating': str(review_rating), 'image_url': str(image_url)}
 
-with open(f'ScrapedData/{category}.csv', 'w') as bk:
+with open(f'ScrapedData/{category}.csv', 'w', encoding="utf-8-sig") as bk:
     fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
     reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
     writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
