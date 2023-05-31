@@ -12,8 +12,14 @@ pathlib.Path('./ScrapedData/IMG').mkdir(parents=True, exist_ok=True)
 récupération des catégories d'ouvrages
 
 """
+base_url = "http://books.toscrape.com/catalogue/category/books_1/index.html"
 
+response = requests.get(base_url)
 
+if response.ok:
+    soup = BeautifulSoup(response.content, 'lxml')
+
+category_list = soup.find('ul', class_= 'nav nav-list').find_all('li')
 """
 
 récupération de tout les ouvrages d'une catégorie
