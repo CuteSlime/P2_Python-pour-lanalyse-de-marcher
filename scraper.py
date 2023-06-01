@@ -32,6 +32,8 @@ categorys = dict(zip(names, links))
 récupération de tout les ouvrages d'une catégorie
 
 """
+for category, link in categorys.items():
+    category_page_url = link
 #i = 2
 # while f"{url catégorie}/page-{i}.html exist:
 # category_page_url = f"http://books.toscrape.com/catalogue/category/books/{category}_??/"
