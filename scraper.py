@@ -19,7 +19,14 @@ response = requests.get(base_url)
 if response.ok:
     soup = BeautifulSoup(response.content, 'lxml')
 
-category_list = soup.find('ul', class_= 'nav nav-list').find_all('li')
+category_list = soup.find('ul', class_='nav nav-list').select('a')
+
+links = ["http://books.toscrape.com/catalogue/category" +
+         el.get('href')[2:] for el in category_list[1:]]
+
+names = [" ".join(el.text.split()) for el in category_list[1:]]
+
+categorys = dict(zip(names, links))
 """
 
 récupération de tout les ouvrages d'une catégorie
