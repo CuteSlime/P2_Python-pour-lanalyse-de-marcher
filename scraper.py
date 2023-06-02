@@ -53,9 +53,8 @@ for category, category_page_url in categorys.items():
         page_number += 1
          
     # get full url by taking relative link from very book starting index 7 and adding original url on the begining
-        books_links.extend(["http://books.toscrape.com/catalogue" + book_link.get('href')[8:] for book_link in soup.find('ol', class_='row').select('a')])
-        
-        print(f'Page N°{str(page_number)}\n{books_links} \n')
+        books_links.extend(["http://books.toscrape.com/catalogue" + book_link.get('href')[8:] for book_link in soup.find('ol', class_='row').select('h3 > a')])
+
     
     
 
