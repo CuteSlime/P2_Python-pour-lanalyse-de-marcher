@@ -60,73 +60,72 @@ for category, category_page_url in categorys.items():
     
     
 
-""" 
+    """ 
 
-récupération des données de l'ouvrage
+    récupération des données de l'ouvrage
 
-"""
+    """
+    for product_page_url in books_links:
 
-product_page_url = 'http://books.toscrape.com/catalogue/set-me-free_988/index.html'
+        response = requests.get(product_page_url)
 
-response = requests.get(product_page_url)
+        if response.ok:
+            soup = BeautifulSoup(response.content, 'lxml')
+            
+        # category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
 
-if response.ok:
-    soup = BeautifulSoup(response.content, 'lxml')
-    
-category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
+        product_main = soup.find('div', class_= 'col-sm-6 product_main')
 
-product_main = soup.find('div', class_= 'col-sm-6 product_main')
+        title = product_main.find('h1').text
 
-title = product_main.find('h1').text
+        image_url = re.compile(r'\.\./\.\./')
+        image_url = 'http://books.toscrape.com/' + image_url.sub('', soup.find(attrs={'alt': title})['src'])
 
-image_url = re.compile(r'\.\./\.\./')
-image_url = 'http://books.toscrape.com/' + image_url.sub('', soup.find(attrs={'alt': title})['src'])
+        number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)[0]
 
-number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)[0]
+        review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
 
-review_rating = product_main.find('p', class_= re.compile('star-rating'))['class'][1]
+        if review_rating == "Five":
+            review_rating = "5"
+        elif review_rating == "Four":
+            review_rating = "4"
+        elif review_rating == "Three":
+            review_rating = "3"
+        elif review_rating == "Two":
+            review_rating = "2"
+        elif review_rating == "One":
+            review_rating = "1"
+        else:
+            review_rating = "0"
 
-if review_rating == "Five":
-    review_rating = "5"
-elif review_rating == "Four":
-    review_rating = "4"
-elif review_rating == "Three":
-    review_rating = "3"
-elif review_rating == "Two":
-    review_rating = "2"
-elif review_rating == "One":
-    review_rating = "1"
-else:
-    review_rating = "0"
+        product_description = soup.select_one('#product_description + p').text
 
-product_description = soup.select_one('#product_description + p').text
+        tablesoup = soup.find('table', class_= 'table table-striped')
 
-tablesoup = soup.find('table', class_= 'table table-striped')
+        th = []
+        td = []
+        for i in tablesoup.find_all('th'):
+            th.append(i.text)
+        for i in tablesoup.find_all('td'):
+            td.append(i.text)
 
-th = []
-td = []
-for i in tablesoup.find_all('th'):
-    th.append(i.text)
-for i in tablesoup.find_all('td'):
-    td.append(i.text)
+        table = dict(zip(th, td))
 
-table = dict(zip(th, td))
+        universal_product_code = table.get('UPC')
 
-universal_product_code = table.get('UPC')
+        price_excluding_tax = table.get('Price (excl. tax)')
 
-price_excluding_tax = table.get('Price (excl. tax)')
+        price_including_tax = table.get('Price (incl. tax)')
 
-price_including_tax = table.get('Price (incl. tax)')
+        book_detail = {'product_page_url': str(product_page_url), 'universal_product_code (upc)': str(universal_product_code), 'title': str(title), 'price_including_tax': str(price_including_tax), 'price_excluding_tax': str(price_excluding_tax), 'number_available': str(number_available), 'product_description': str(product_description), 'category': str(category), 'review_rating': str(review_rating), 'image_url': str(image_url)}
 
-book = {'product_page_url': str(product_page_url), 'universal_product_code (upc)': str(universal_product_code), 'title': str(title), 'price_including_tax': str(price_including_tax), 'price_excluding_tax': str(price_excluding_tax), 'number_available': str(number_available), 'product_description': str(product_description), 'category': str(category), 'review_rating': str(review_rating), 'image_url': str(image_url)}
-
-with open(f'ScrapedData/{category}.csv', 'w', encoding="utf-8-sig") as bk:
-    fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
-    reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
-    writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
-    
-    writer.writeheader()
-    writer.writerow(book)
+        with open(f'ScrapedData/{category}/{category}.csv', 'w', encoding="utf-8-sig") as bk:
+            fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+            reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+            writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+            
+            writer.writeheader()
+            writer.writerow(book_detail)
 
 
 """
