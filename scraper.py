@@ -79,6 +79,8 @@ for category, category_page_url in categorys.items():
 
         product_main = soup.find('div', class_= 'col-sm-6 product_main')
 
+        title = product_main.find('h1').text 
+        
         image_url = ("http://books.toscrape.com" +
              soup.find(attrs={'alt': title})['src'][5:]) 
 
