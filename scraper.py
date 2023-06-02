@@ -85,6 +85,9 @@ for category, category_page_url in categorys.items():
 
         image_url = ("http://books.toscrape.com" +
              soup.find(attrs={'alt': title})['src'][5:]) 
+        #save image from url with the book name without space and the right img format
+        title = "".join(replace_all(title, cleaner).split("_(", 1)[0])        
+        image = request.urlretrieve(image_url, f'./ScrapedData/{category}/IMG/{title}.{image_url.split(".")[-1]}')
 
         number_available = re.search('\d+', product_main.find('p', class_= 'instock availability').text)[0]
 
