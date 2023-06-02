@@ -75,7 +75,6 @@ for category, category_page_url in categorys.items():
         if response.ok:
             soup = BeautifulSoup(response.content, 'lxml')
             
-        # category = soup.find('ul', class_= 'breadcrumb').find(href=re.compile('../category/books/')).text
 
         product_main = soup.find('div', class_= 'col-sm-6 product_main')
 
@@ -106,7 +105,8 @@ for category, category_page_url in categorys.items():
         else:
             review_rating = "0"
 
-        product_description = soup.select_one('#product_description + p').text
+        product_description = soup.select_one('#product_description + p').text if None else ""
+
 
         tablesoup = soup.find('table', class_= 'table table-striped')
 
