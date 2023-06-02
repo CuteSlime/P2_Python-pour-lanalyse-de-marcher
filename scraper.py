@@ -2,6 +2,7 @@
 
 import requests
 import pathlib
+from pathlib import Path
 import re
 import csv
 from bs4 import BeautifulSoup
@@ -118,14 +119,18 @@ for category, category_page_url in categorys.items():
         price_including_tax = table.get('Price (incl. tax)')
 
         book_detail = {'product_page_url': str(product_page_url), 'universal_product_code (upc)': str(universal_product_code), 'title': str(title), 'price_including_tax': str(price_including_tax), 'price_excluding_tax': str(price_excluding_tax), 'number_available': str(number_available), 'product_description': str(product_description), 'category': str(category), 'review_rating': str(review_rating), 'image_url': str(image_url)}
-
-        with open(f'ScrapedData/{category}/{category}.csv', 'w', encoding="utf-8-sig") as bk:
-            fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
-            reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
-            writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
-            
-            writer.writeheader()
-            writer.writerow(book_detail)
+        
+        fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+        reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+        writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+        
+        if Path(f'ScrapedData/{category}/{category}.csv').is_file():
+            with open(f'ScrapedData/{category}/{category}.csv', 'a', encoding="utf-8-sig") as bk:
+                writer.writerow(book_detail)
+        else :
+            with open(f'ScrapedData/{category}/{category}.csv', 'w', encoding="utf-8-sig") as bk:
+                writer.writeheader()
+                writer.writerow(book_detail)
 
 
 """
