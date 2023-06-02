@@ -32,11 +32,32 @@ categorys = dict(zip(names, links))
 récupération de tout les ouvrages d'une catégorie
 
 """
-for category, link in categorys.items():
-    category_page_url = link
-#i = 2
-# while f"{url catégorie}/page-{i}.html exist:
-# category_page_url = f"http://books.toscrape.com/catalogue/category/books/{category}_??/"
+# for every category
+for category, category_page_url in categorys.items():
+    
+    pathlib.Path(f'./ScrapedData/{category}/IMG').mkdir(parents=True, exist_ok=True)
+    
+    response_cat = requests.get(category_page_url[:-10] + "index.html")
+    
+    page_number = 2
+    
+    books_links = []
+
+    print(f'\n {category} \n')
+   
+    while response_cat.ok:
+        soup = BeautifulSoup(response_cat.content, 'lxml')
+        
+        response_cat = requests.get(category_page_url[:-10] + f"page-{str(page_number)}.html") 
+        
+        page_number += 1
+         
+    # get full url by taking relative link from very book starting index 7 and adding original url on the begining
+        books_links.extend(["http://books.toscrape.com/catalogue" + book_link.get('href')[8:] for book_link in soup.find('ol', class_='row').select('a')])
+        
+        print(f'Page N°{str(page_number)}\n{books_links} \n')
+    
+    
 
 """ 
 
