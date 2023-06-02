@@ -1,10 +1,8 @@
 # coding: utf-8
 
-import requests
-import pathlib
+import requests, re, csv
 from pathlib import Path
-import re
-import csv
+from urllib import request
 from bs4 import BeautifulSoup
 
 
@@ -37,7 +35,7 @@ récupération de tout les ouvrages d'une catégorie
 # for every category
 for category, category_page_url in categorys.items():
     
-    pathlib.Path(f'./ScrapedData/{category}/IMG').mkdir(parents=True, exist_ok=True)
+    Path(f'./ScrapedData/{category}/IMG').mkdir(parents=True, exist_ok=True)
     
     response_cat = requests.get(category_page_url[:-10] + "index.html")
     
