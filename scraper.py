@@ -14,10 +14,11 @@ récupération des catégories d'ouvrages
 """
 base_url = "http://books.toscrape.com/catalogue/category/books_1/index.html"
 
-response = requests.get(base_url)
+response_all = requests.get(base_url)
 
-if response.ok:
-    soup = BeautifulSoup(response.content, 'lxml')
+if response_all.ok:
+    
+    soup = BeautifulSoup(response_all.content, 'lxml')
 
 category_list = soup.find('ul', class_='nav nav-list').select('a')
 
