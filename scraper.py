@@ -6,6 +6,11 @@ from urllib import request
 from bs4 import BeautifulSoup
 
 
+
+def replace_all(text, dic):
+            for i, j in dic.items():
+                text = text.replace(i, j)
+            return text
 """
 
 récupération des catégories d'ouvrages
