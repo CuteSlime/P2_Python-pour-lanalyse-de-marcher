@@ -81,6 +81,8 @@ for category, category_page_url in categorys.items():
 
         title = product_main.find('h1').text 
         
+        cleaner = {",": "","#": ""," ": "_","*": "","?": "",":": "","/": "","\\": "","|": "","<": "",">": "","\"": ""}
+
         image_url = ("http://books.toscrape.com" +
              soup.find(attrs={'alt': title})['src'][5:]) 
 
