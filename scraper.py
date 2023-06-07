@@ -130,13 +130,13 @@ for category, category_page_url in categorys.items():
         
         
         if Path(f'ScrapedData/{category}/{category}.csv').is_file():
-            with open(f'ScrapedData/{category}/{category}.csv', 'a', encoding="utf-8-sig") as bk:
+            with open(f'ScrapedData/{category}/{category}.csv', 'a', encoding="utf-8-sig", newline="") as bk:
                 fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
                 reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
                 writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
                 writer.writerow(book_detail)
         else :
-            with open(f'ScrapedData/{category}/{category}.csv', 'w', encoding="utf-8-sig") as bk:
+            with open(f'ScrapedData/{category}/{category}.csv', 'w', encoding="utf-8-sig", newline="") as bk:
                 fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
                 reader = csv.DictReader(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
                 writer = csv.DictWriter(bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
