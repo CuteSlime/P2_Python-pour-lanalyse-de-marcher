@@ -15,7 +15,7 @@ py -m venv .env
 
 mettez à jour Pip :
 
-```python
+```py
 py -m pip install --upgrade pip
 ```
 
@@ -25,3 +25,22 @@ installer les dépendance :
 pip install -r requirements.txt
 ```
 
+## Utilisation
+
+lancer une invite de commande.
+
+placer vous dans le dossier du projet ou ce situe le fichier scraper.py
+
+lancez le script python avec la commande :
+
+```py
+py scraper.py
+```
+
+## hiérarchie
+
+le script scraper.py ce situe a la racine du projet.
+
+lancer le script créera un dossier "ScrappedData" à la racine du projet.
+
+à l'intérieur vous retrouverez un dossier par catégorie de livre, dans les quelles ce trouve un fichier CSV avec les détails de tout les livres de la catégorie et un dossier IMG avec les images de ces livre.
