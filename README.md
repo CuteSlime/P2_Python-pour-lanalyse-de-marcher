@@ -2,7 +2,6 @@
 
 Projet N°2 du parcours OpenClassrooms
 
-
 ## installer le projet
 
 commencer par cloner le projet avec git clone
