@@ -116,8 +116,12 @@ for category, category_page_url in categorys.items():
         else:
             review_rating = "0"
 
-        product_description = soup.select_one(
-            '#product_description + p').text if None else ""
+        product_description = soup.select_one('#product_description + p')
+
+        if product_description == None:
+            product_description = ""
+        else:
+            product_description = product_description.text
 
         tablesoup = soup.find('table', class_='table table-striped')
 
