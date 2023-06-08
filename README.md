@@ -42,4 +42,4 @@ le script scraper.py ce situe a la racine du projet.
 
 lancer le script créera un dossier "ScrappedData" à la racine du projet.
 
-à l'intérieur vous retrouverez un dossier par catégorie de livre, dans les quelles ce trouve un fichier CSV avec les détails de tout les livres de la catégorie et un dossier IMG avec les images de ces livre.
+à l'intérieur vous retrouverez un dossier par catégorie de livre, dans les quelles ce trouve un fichier CSV avec les détails de tout les livres de la catégorie et un dossier IMG avec les images de ces livres.
