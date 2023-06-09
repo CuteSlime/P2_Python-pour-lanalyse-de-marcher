@@ -102,7 +102,9 @@ for category, category_page_url in categorys.items():
         cleaner = {",": "", "#": "", " ": "_", "*": "", "?": "", ":": "",
                    "/": "", "\\": "", "|": "", "<": "", ">": "", "\"": ""}
         title = "".join(replace_all(title, cleaner).split("_(", 1)[0])
-
+        # verify if directory exist, if not, create it with parent folder
+        Path(
+            f'./ScrapedData/{category}/IMG').mkdir(parents=True, exist_ok=True)
         # save image from url with the book name without space and the right img format
         image = request.urlretrieve(
             image_url, f'./ScrapedData/{category}/IMG/{title}.{image_url.split(".")[-1]}')
