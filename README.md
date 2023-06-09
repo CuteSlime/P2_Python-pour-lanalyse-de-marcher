@@ -2,7 +2,7 @@
 
 Projet N°2 du parcours OpenClassrooms
 
-## installer le projet
+## installer le projet (Windows)
 
 commencer par cloner le projet avec git clone
 
@@ -12,10 +12,10 @@ une fois le projet en local, créer votre environement virtuel :
 py -m venv .env
 ```
 
-mettez à jour Pip :
+activer l'environement virtuel :
 
 ```py
-py -m pip install --upgrade pip
+./.env/scripts/activate
 ```
 
 installer les dépendance :
