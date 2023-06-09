@@ -106,7 +106,7 @@ for category, category_page_url in categorys.items():
 
         # initialize a dict to use into replace_all function
         cleaner = {",": "", "#": "", " ": "_", "*": "", "?": "", ":": "",
-                   "/": "", "\\": "", "|": "", "<": "", ">": "", "\"": ""}
+                   "/": "", "\\": "", "|": "", "<": "", ">": "", "\"": "", "\t": "_"}
         title = "".join(replace_all(title, cleaner).split("_(", 1)[0])
         # verify if directory exist, if not, create it with parent folder
         Path(
@@ -142,7 +142,8 @@ for category, category_page_url in categorys.items():
             product_description = ""
         else:
             product_description = product_description.text
-
+            product_description.replace("\"", "'")
+            product_description = f"\"{product_description}\""
         tablesoup = soup.find('table', class_='table table-striped')
 
         # init varriable and populate them with the html table
@@ -173,16 +174,16 @@ for category, category_page_url in categorys.items():
         if Path(f'ScrapedData/{category}/{category}.csv').is_file():
             with open(f'ScrapedData/{category}/{category}.csv', 'a', encoding="utf-8-sig", newline="") as bk:
                 reader = csv.DictReader(
-                    bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+                    bk, dialect='excel', delimiter=';', quotechar='"', fieldnames=fieldnames)
                 writer = csv.DictWriter(
-                    bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+                    bk, dialect='excel', delimiter=';', quotechar='"', fieldnames=fieldnames)
                 writer.writerow(book_detail)
         else:
             with open(f'ScrapedData/{category}/{category}.csv', 'w', encoding="utf-8-sig", newline="") as bk:
                 reader = csv.DictReader(
-                    bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+                    bk, dialect='excel', delimiter=';', quotechar='"', fieldnames=fieldnames)
                 writer = csv.DictWriter(
-                    bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
+                    bk, dialect='excel', delimiter=';', quotechar='"', fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerow(book_detail)
 print("book :", count_book, "image :", count_img)
