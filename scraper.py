@@ -86,7 +86,7 @@ for category, category_page_url in categorys.items():
     for product_page_url in books_links:
 
         response = requests.get(product_page_url)
-
+        response.encoding = "UTF-8"
         if response.ok:
             soup = BeautifulSoup(response.content, 'lxml')
 
@@ -135,7 +135,7 @@ for category, category_page_url in categorys.items():
         else:
             review_rating = "0"
 
-        # test if correct to avoid error
+        # test if correct to avoid error and add quote for csv export
         product_description = soup.select_one('#product_description + p')
 
         if product_description == None:
@@ -144,6 +144,7 @@ for category, category_page_url in categorys.items():
             product_description = product_description.text
             product_description.replace("\"", "'")
             product_description = f"\"{product_description}\""
+
         tablesoup = soup.find('table', class_='table table-striped')
 
         # init varriable and populate them with the html table
