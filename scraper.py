@@ -16,6 +16,8 @@ def replace_all(text, dic):
     return text
 
 
+count_img = 0
+count_book = 0
 """
 
 getting all books category
@@ -75,13 +77,12 @@ for category, category_page_url in categorys.items():
     # get full url by taking relative link from every book starting index 8 and adding original url on the begining
         books_links.extend(["http://books.toscrape.com/catalogue" + book_link.get('href')[8:]
                            for book_link in soup.find('ol', class_='row').select('h3 > a')])
-
     """ 
 
     get data from a book
 
     """
-
+    count_book += len(books_links)
     for product_page_url in books_links:
 
         response = requests.get(product_page_url)
@@ -97,6 +98,11 @@ for category, category_page_url in categorys.items():
         # getting image_url befor cleanning title
         image_url = ("http://books.toscrape.com" +
                      soup.find(attrs={'alt': title})['src'][5:])
+        if image_url == "":
+            print(
+                "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! No image !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        else:
+            count_img += 1
 
         # initialize a dict to use into replace_all function
         cleaner = {",": "", "#": "", " ": "_", "*": "", "?": "", ":": "",
@@ -163,10 +169,6 @@ for category, category_page_url in categorys.items():
         fieldnames = ['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax',
                       'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
 
-        # verify if directory exist, if not, create it with parent folder
-        Path(
-            f'./ScrapedData/{category}/IMG').mkdir(parents=True, exist_ok=True)
-
         # verify if CSV exist, if exist, add a new book to it, if not, create a header and add the first book to it.
         if Path(f'ScrapedData/{category}/{category}.csv').is_file():
             with open(f'ScrapedData/{category}/{category}.csv', 'a', encoding="utf-8-sig", newline="") as bk:
@@ -183,3 +185,4 @@ for category, category_page_url in categorys.items():
                     bk, dialect='excel', delimiter=';', fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerow(book_detail)
+print("book :", count_book, "image :", count_img)
